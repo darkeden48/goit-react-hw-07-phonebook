@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import { useState } from "react";
 import form from "./Form.module.css";
 import { nanoid } from "nanoid";
-import { useSelector, useDispatch } from "react-redux";
-import {addContact} from "../../redux/actions"
+import { useContactsQuery, useAddContactMutation} from '../../redux/contactsApi';
 
 export default function Form() {
-  const contacts = useSelector(state=>state.contacts.contacts);
-  const dispatch = useDispatch();
+  const {data:contacts} =useContactsQuery();
+  const [newContact,{isLoading}]=useAddContactMutation();
   
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -20,7 +19,7 @@ export default function Form() {
     name,
     number
 }
- 
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
@@ -43,7 +42,7 @@ export default function Form() {
           alert(contact.name + " is already in contacts");
               return;
         }
-        dispatch(addContact(contact)); 
+         newContact({name,number})
   };    
   
   const reset = (e) => {
@@ -79,7 +78,7 @@ export default function Form() {
           required
         />
       </label>
-      <button type="submit">Add contact</button>
+      <button type="submit" disabled={isLoading}>Add contact</button>
     </form>
   );
 };

@@ -1,21 +1,22 @@
 import PropTypes from "prop-types";
 import React from "react";
 import f from "./Filter.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import {filterContact} from "../../redux/actions"
+import {useDispatch, useSelector } from "react-redux";
+import {filterContact} from "../../redux/actions";
+
 
 export default function Filter() {
-  const filtered = useSelector(state=>state.filter);
+  const filtered = useSelector(state=>state.filter);  
   const dispatch = useDispatch();
   
   const handleFilterChange = (e) => {
-    dispatch(filterContact( e.currentTarget.value));
+    dispatch(filterContact( e.target.value));
   };
   
   return (
     <label className={f.filter_title}>
       Filter by name
-      <input type="text" value={filtered.filter} onChange={handleFilterChange} />
+      <input name="filter" type="text" value={filtered.filter} onChange={handleFilterChange} />
     </label>
   );
 };
