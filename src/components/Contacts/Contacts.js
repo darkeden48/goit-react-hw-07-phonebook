@@ -8,7 +8,6 @@ export default function Contacts() {
   const {data:contacts,error} =useContactsQuery();
   const [removeContact,{isLoading}]=useDeleteContactMutation();
   const filtered = useSelector(state=>state.filter);
-  // const normalizedFilter = filter;
   let visibleContacts = [];
   console.log(filtered)
   console.log(contacts)
@@ -24,10 +23,10 @@ export default function Contacts() {
 
   return (
     <ul className={c.contacts_list}>
-      {visibleContacts.map(({ name, number, id }) => (
+      {visibleContacts.map(({ name, phone, id }) => (
         <li key={id}>
           <span>{name}:</span>
-          <span> {number}</span>
+          <span>{phone}</span>
           <button type="button" disabled={isLoading} id={id} onClick={()=>removeContact(id)}>
             Delete
           </button>
