@@ -25,7 +25,7 @@ export default function Contacts() {
     <ul className={c.contacts_list}>
       {visibleContacts.map(({ name, phone, id }) => (
         <li key={id}>
-          <span>{name}:</span>
+          <span>{name}: </span>
           <span>{phone}</span>
           <button type="button" disabled={isLoading} id={id} onClick={()=>removeContact(id)}>
             Delete
